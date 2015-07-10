@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="teensydaq_jar" name="Create Multi Modal Recording Jar-file">
+
+	<!-- Configuration -->
+	<property name="version"   value="1.4"/>
+	<property name="built_by"  value="${user.name}"/>
+
+	<!-- run the ant timestamp task -->
+	<tstamp/>
+
+	<!-- Compile the source files -->
+	<target name="compile" description="The compile task" >
+		<mkdir dir="../bin" />
+		<javac srcdir="../src" destdir="../bin" classpath="" includeantruntime="false"  source="1.6"  target="1.6" >
+			<classpath>
+				<fileset dir="../lib" includes="*.jar" />
+			</classpath>
+		</javac>
+	</target>
+
+	<!-- Clean the build directory -->
+	<target name="clean" description="Clean the build directory">
+		<delete dir="../bin" />
+	</target>
+
+	<!-- Build the jar -->
+	<target name="teensydaq_jar" depends="compile" description="Build the TeensyDAQ">
+	
+		<!-- With included source files -->
+		<jar destfile="../build/TeensyDAQ-${version}.jar" filesetmanifest="mergewithoutmain" duplicate="preserve">
+			<manifest>
+				<attribute name="Main-Class" value="be.ugent.ipem.teensydaq.TeensyDAQFrame"/>
+				<attribute name="Implementation-Version" value="${version}-${DSTAMP}"/>
+				<attribute name="Built-By" value="${built_by}"/>
+				<attribute name="Created-By" value="${built_by}"/>
+				<attribute name="Built-Date" value="${TODAY}"/>
+			</manifest>
+
+			<!-- Compiled files -->
+			<fileset dir="../bin"/>
+
+			<!-- Include external libraries -->
+			<zipfileset excludes="META-INF/*.SF" src="../lib/TarsosDSP-2.2.jar"/>
+			<zipfileset excludes="META-INF/*.SF" src="../lib/jssc.jar"/>
+
+			<!-- include source files -->
+			<fileset dir="../src">
+				<include name="**/*.java"/>
+			</fileset>
+		</jar>		
+	</target>
+
+
+
+	<!-- Build the library documentation -->
+	<target name="javadoc" description="Build the library documentation">
+		<javadoc access="public" author="true" classpath="../lib/TarsosDSP-2.2.jar:../lib/jssc.jar" 
+			destdir="doc" 
+			doctitle="TeensyDAQ API ${version}-${DSTAMP}" 
+			nodeprecated="false" 
+			nodeprecatedlist="false" 
+			noindex="false" 
+			nonavbar="false" 
+			notree="false" 
+			packagenames="be.ugent.ipem.teensydaq,be.ugent.ipem.teensydaq.layers,be.ugent.ipem.teensydaq.util" 
+			source="1.7" 
+			sourcepath="../src" 
+			splitindex="true" 
+			use="true" version="true"/>
+	</target>
+
+</project>

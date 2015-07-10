@@ -1,0 +1,62 @@
+h1. TeensyDAQ
+
+TeensyDAQ is a Java application to quickly visualize and record analog signals with a "Teensy micro-controller":https://www.pjrc.com/teensy/ and some custom software. It is mainly useful to quickly get an idea of how an analog sensor reacts to different stimuli. Since it is also able to capture and store analog input siginals it is also useful to generate test data recordings which then can be used for example to test a peak detection algorithm on. The name TeensyDAQ hints at the Data AcQuisition features and the micro-controller used.
+
+Some of the features of the TeensyDAQ:
+
+* Visualize up to five analog signals simultaneously in real-time.
+* Capture analog input signals with sampling rates up to 8000Hz.
+* Record analog input to a CSV-file and, using drag-and-drop, previously recorded CSV-files can be visualized.
+* Works on Linux, Mac OS X and Windows.
+* While a capture session is in progress you can going back in time and zoom, pan and drag to get a detailed view on your data.
+* Allows you to listen to your input signal, this is especially practical with analog microphone input.
+
+The system consists of two parts. A hardware and a software part. The hardware is a Teensy micro-controller running an Arduino sketch that ready analog input A0 to A4 at the requested sampling rate. A Teensy is used instead of a regular Arduino for two reasons. First the Teensy is capable of much higher data throughput, it is able to send five reading at 8000Hz, which is impossible on Arduino. The second reason is the 13bit analog read resolution. Classic Arduino only provides 10 bits.
+
+!http://0110.be/files/photos/436/slider_TeensyDAQPorts_marked.png!
+
+The software part reads data from the serial port the Teensy is attached to. It interprets the data and stores it in an efficient data-structure. As quickly as possible the data is visualized. The software is written in Java. A recent Java runtime environment is needed to execute it.
+
+!http://0110.be/files/photos/436/slider_teensyDAQ_light_sensor_recording.png!
+
+h2. Quickly Getting Started with TeensyDAQ
+
+Head over to the "TeensyDAQ release repository":http://tarsos.0110.be/releases/TeensyDAQ/ and download the latest "TeensyDAQ application":http://tarsos.0110.be/releases/TeensyDAQ/TeensyDAQ-latest/TeensyDAQ-latest.jar. Every "release of TeensyDAQ":http://0110.be/releases/TeensyDAQ/ contains the following:
+
+* @TeensyDAQ-x.x-Documentation/@ JavaDoc documentation
+* @TeensyDAQ-x.x-Readme.html@ This readme.
+* @TeensyDAQ-x.x.jar@ the executable JAR file with source files included.
+
+h2. Developing TeensyDAQ
+
+If you want to build from source, or want to improve TeensyDAQ follow the instructions below. Contributions to TeensyDAQ are more than welcome, if you have a feature to add or find a bug, do not hesitate to send me a message.
+
+TeensyDAQ uses "Apache Ant":http://ant.apache.org/ as a build system. The instructions below detail how you can build from source. 
+
+Next to "Apache Ant":http://ant.apache.org/ you also need "git":http://git-scm.com/ installed on your system. The following commands fetch the source and build the library and example jars: 
+<pre><code>git clone https://JorenSix@github.com/JorenSix/TeensyDAQ.git
+cd TeensyDAQ
+cd build
+ant 
+ant javadoc #Creates the documentation
+</code></pre>
+ 
+The source tree is contains these folder:  
+
+* @src@ contains the source files of the library. 
+* @lib@ contains the required dependencies libraries.
+* @sketches@ contains sketches for the Teensy microcontroller. They are compatible with "TeensyDuino":https://www.pjrc.com/teensy/teensyduino.html
+* @build@ contains the ant build file.
+
+
+h2. Credits
+ 
+TeensyDAQ is programmed by Joren Six and is supported by "University Ghent, IPEM":http://www.ipem.ugent.be. 
+
+
+h2. Changelog
+
+<dt>Version 1.0</dt><dd>2015-07-10</dd> First release which includes basic functionality.
+
+
+ 
