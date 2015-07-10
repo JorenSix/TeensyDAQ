@@ -26,7 +26,19 @@ The software part reads data from the serial port the Teensy is attached to. It 
 
 h2. Quickly Getting Started with TeensyDAQ
 
-Head over to the "TeensyDAQ release repository":http://tarsos.0110.be/releases/TeensyDAQ/ and download the latest "TeensyDAQ application":http://tarsos.0110.be/releases/TeensyDAQ/TeensyDAQ-latest/TeensyDAQ-latest.jar. Every "release of TeensyDAQ":http://0110.be/releases/TeensyDAQ/ contains the following:
+First get a Teensy micro-controller and flash it with the sketch in @sketches/TeensyAnalogRead@ with "TeensyDuino":https://www.pjrc.com/teensy/teensyduino.html. It needs the "IntervalTimer":https://www.pjrc.com/teensy/td_timing_IntervalTimer.html library. Once you have flashed your Teensy, attach an analog sensor to board. A simple example is e.g. a ligth sensor:
+
+<p align="center">
+ !http://0110.be/files/photos/436/slider_teensyDAQ_light_sensor.jpg!
+ <br><small>Fig 1. Light sensor attached to a Teensy</small>
+</p>
+ 
+Once you have your sketch running, head over to the "TeensyDAQ release repository":http://tarsos.0110.be/releases/TeensyDAQ/ and download the latest "TeensyDAQ application":http://tarsos.0110.be/releases/TeensyDAQ/TeensyDAQ-latest/TeensyDAQ-latest.jar. If the JRE is installed correctly you should be able to simply double click it. Otherwise execute @java -jar TeensyDAQ-latest.jar@ on the command line. Once you see the interface press start to get a live view of the incoming analog signals. Press f while hovering the mouse over the graph to stop following the data-stream, subsequently you are able to pan, zoom and select parts of the signal. 
+
+To save a stream of data simply type in a filename in the @CSV filname@ text field and press start. It will create a file in the same directory as the jar file. To visualize the contents of a previously created CSV-file, simply drag and drop the CSV-file to the graph. The contents should show up immediately. 
+
+
+Every "release of TeensyDAQ":http://0110.be/releases/TeensyDAQ/ contains the following:
 
 * @TeensyDAQ-x.x-Documentation/@ JavaDoc documentation
 * @TeensyDAQ-x.x-Readme.html@ This readme.
