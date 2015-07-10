@@ -13,15 +13,16 @@ Some of the features of the TeensyDAQ:
 
 The system consists of two parts. A hardware and a software part. The hardware is a Teensy micro-controller running an Arduino sketch that ready analog input A0 to A4 at the requested sampling rate. A Teensy is used instead of a regular Arduino for two reasons. First the Teensy is capable of much higher data throughput, it is able to send five reading at 8000Hz, which is impossible on Arduino. The second reason is the 13bit analog read resolution. Classic Arduino only provides 10 bits.
 
-p=. !http://0110.be/files/photos/436/slider_TeensyDAQPorts_marked.png!
-
-p=. Fig 1. Ports used from the Teensy
+<p align="center">
+ !http://0110.be/files/photos/436/slider_TeensyDAQPorts_marked.png!
+ <br><small>Fig 1. Ports used from the Teensy</small>
+</p>
 
 The software part reads data from the serial port the Teensy is attached to. It interprets the data and stores it in an efficient data-structure. As quickly as possible the data is visualized. The software is written in Java. A recent Java runtime environment is needed to execute it.
 
-p=. !http://0110.be/files/photos/436/slider_teensyDAQ_light_sensor_recording.png!
-
-p=. Screenshot of TeensyDAQ running with live input.
+<p align="center">!http://0110.be/files/photos/436/slider_teensyDAQ_light_sensor_recording.png!
+<br><small> Fig 2. Screenshot of TeensyDAQ running with live input.</small>
+</p>
 
 h2. Quickly Getting Started with TeensyDAQ
 
