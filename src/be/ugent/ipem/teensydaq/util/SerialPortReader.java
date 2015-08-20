@@ -16,18 +16,27 @@ public class SerialPortReader {
 		this.handler = handler;
 	}
 	
-	public void start(){
+	public void open(){
 		try {
             serialPort.openPort();//Open port
             serialPort.setParams(921600, 8, 1, 0);//Set params
             int mask = SerialPort.MASK_RXCHAR;//Prepare mask
         	//Set mask
 			serialPort.setEventsMask(mask);
-			serialPort.addEventListener(new SerialPortLineReader(serialPort,handler));//Add SerialPortEventListener
         }
         catch (SerialPortException ex) {
             System.out.println(ex);
         }
+	}
+	
+	public void start(){
+		//Add SerialPortEventListener
+		try {
+			serialPort.addEventListener(new SerialPortLineReader(serialPort,handler));
+		} catch (SerialPortException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void stop(){

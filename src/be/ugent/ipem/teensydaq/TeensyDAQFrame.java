@@ -100,7 +100,7 @@ public class TeensyDAQFrame extends JFrame implements ViewPortChangedListener, D
 		    }
 		});
 		
-		sampleRateSpinner = new JSpinner(new SpinnerNumberModel(200.0,0.0,8000,1));
+		sampleRateSpinner = new JSpinner(new SpinnerNumberModel(8000.0,0.0,8000,1));
 		fileNameField = new JTextField();
 		String[] serialPorts = SerialPortReader.getSerialPorts();
 		serialPort=new JComboBox<String>(serialPorts);
@@ -299,6 +299,7 @@ public class TeensyDAQFrame extends JFrame implements ViewPortChangedListener, D
 			float sampleRate = Float.valueOf(sampleRateSpinner.getModel().getValue().toString());
 			daq = new TeensyDAQ((int) sampleRate,portname, startInputChannel, numberOfChannels);
 			//daq.addDataHandler(new PeakDetectionToOSCDataHandler(0));
+			//daq.addDataHandler(new PeakDetectionToOSCDataHandler(1));
 			daq.addDataHandler(this);
 
 			if(!"".equals(fileNameField.getText().trim())){
