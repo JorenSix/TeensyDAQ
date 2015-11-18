@@ -10,7 +10,7 @@
 ############################
 
 require 'rubygems'
-require 'RedCloth'
+require 'redcloth'
 
 input_file = ARGV[0]
 output_file = ARGV[1]

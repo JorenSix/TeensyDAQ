@@ -73,7 +73,7 @@ public class TeensyDAQ implements SerialDataLineHandler{
 	@Override
 	public void handleSerialDataLine(int lineNumber, String lineData) {
 		//first lines are unreliable
-		if(lineNumber < 50)
+		if(lineNumber < 60)
 		return;
 		
 		String[] lineDataValues = lineData.split(" ");
