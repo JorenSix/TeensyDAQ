@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import jssc.SerialPortException;
 import be.ugent.ipem.teensydaq.util.SerialPortReader;
 import be.ugent.ipem.teensydaq.util.SerialPortReader.SerialDataLineHandler;
 
@@ -44,18 +45,23 @@ public class TeensyDAQ implements SerialDataLineHandler{
 	}
 	
 	
-	public void start(){
-		reader.open();
-		reader.write(String.format("SET SR %04d\n", sampleRate));
-		//wait for the sample rate change to finish
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-		
-		}
-		
-		timeScaler = (float) (1.0/(float)this.sampleRate);
-		reader.start();
+	public void start() throws SerialPortException{
+		try{
+			reader.open();
+			reader.write(String.format("SET SR %04d\n", sampleRate));
+			//wait for the sample rate change to finish
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+			
+			}
+			timeScaler = (float) (1.0/(float)this.sampleRate);
+			reader.start();
+		}catch (SerialPortException e) {
+			firstTimeIndex = -100;
+			previousMeasurements = null;
+			throw e;
+		}		
 	}
 	
 	public void stop(){

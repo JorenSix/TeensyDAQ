@@ -53,15 +53,13 @@ public class SerialPortReader {
 		void handleSerialDataLine(int lineNumber, String lineData);
 	}
 	
-	public void write(String line){
+	public void write(String line) throws SerialPortException{
 		if(!line.endsWith("\n")){
 			line = line + "\n";
 		}
-		try {
-			serialPort.writeString(line);
-		} catch (SerialPortException e) {
-			e.printStackTrace();
-		}
+		
+		serialPort.writeString(line);
+		
 	}
     
     /*

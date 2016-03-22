@@ -67,7 +67,7 @@ public class TeensyDAQFrame extends JFrame implements ViewPortChangedListener, D
 	 * 
 	 */
 	private static final long serialVersionUID = -7096578086282090881L;
-	private static final int MAX_ANALOG_INPUTS = 5;
+	private static final int MAX_ANALOG_INPUTS = 8;
 	
 	private final ConcurrentSkipListMap<Double, Double[]> data = new ConcurrentSkipListMap<Double, Double[]>();
 	private final Color[] colorMap =  Configuration.colorMap;
@@ -84,6 +84,8 @@ public class TeensyDAQFrame extends JFrame implements ViewPortChangedListener, D
 	private final JSpinner sampleRateSpinner;
 	private JButton startButton;
 	private JButton stopButton;
+	private JSpinner recordingIDSpinner;
+	private int recordingId;
 	
 	public TeensyDAQFrame(){
 		BorderLayout layout = new BorderLayout();
@@ -100,8 +102,14 @@ public class TeensyDAQFrame extends JFrame implements ViewPortChangedListener, D
 		    }
 		});
 		
-		sampleRateSpinner = new JSpinner(new SpinnerNumberModel(8000.0,0.0,8000,1));
+		sampleRateSpinner = new JSpinner(new SpinnerNumberModel(500.0,0.0,8000,1));
+		sampleRateSpinner.setToolTipText("The sample rate in Hz");
+		
+		recordingIDSpinner = new JSpinner(new SpinnerNumberModel(1,1,8000,1));
+		sampleRateSpinner.setToolTipText("The recording id can be used in the file name field");
+		
 		fileNameField = new JTextField();
+		fileNameField.setToolTipText("%d is replaced with the recording id");
 		String[] serialPorts = SerialPortReader.getSerialPorts();
 		serialPort=new JComboBox<String>(serialPorts);
 		
@@ -213,7 +221,10 @@ public class TeensyDAQFrame extends JFrame implements ViewPortChangedListener, D
 		this.setTitle("TeensyDAQ");
 		this.stopButton.setEnabled(false);
 		this.startButton.setEnabled(true);
-		fileNameField.setText("");
+		
+		recordingId++;
+		recordingIDSpinner.setValue(recordingId);
+		
 		if(daq !=null){
 			daq.stop();
 			daq = null;
@@ -303,7 +314,7 @@ public class TeensyDAQFrame extends JFrame implements ViewPortChangedListener, D
 			daq.addDataHandler(this);
 
 			if(!"".equals(fileNameField.getText().trim())){
-			  daq.addDataHandler(new DAQCSVFileWriter(fileNameField.getText().trim()));
+			  daq.addDataHandler(new DAQCSVFileWriter(fileNameField.getText().trim().replace("%d", recordingId+"")));
 			}
 			int numberOfChannelsToListenTo = 0;
 			for(int i = 0 ; i < listenTo.length ;i++){
@@ -317,8 +328,8 @@ public class TeensyDAQFrame extends JFrame implements ViewPortChangedListener, D
 			daq.start();
 		}catch(Exception e){
 			JOptionPane.showMessageDialog(this,
-				    "Error initializing the DAQ:\n" + e.getMessage(),
-				    "DAQ error",
+				    "Error initializing the Teensy:\n" + e.getMessage(),
+				    "Read error",
 				    JOptionPane.ERROR_MESSAGE);
 		}
 	}
@@ -393,6 +404,10 @@ public class TeensyDAQFrame extends JFrame implements ViewPortChangedListener, D
 		numberOfInputsPanel.add(numberOfInputsSpinner);
 		numberOfInputsPanel.add(new JLabel("Sample rate:",SwingConstants.RIGHT));
 		numberOfInputsPanel.add(sampleRateSpinner);		
+		
+		numberOfInputsPanel.add(new JLabel("Recording id:",SwingConstants.RIGHT));
+		numberOfInputsPanel.add(recordingIDSpinner);		
+		
 		numberOfInputsPanel.add(new JLabel("CSV filename:",SwingConstants.RIGHT));
 		numberOfInputsPanel.add(fileNameField);		
 		numberOfInputsPanel.setMinimumSize(new Dimension(0,150));

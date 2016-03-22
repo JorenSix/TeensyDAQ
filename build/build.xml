@@ -2,7 +2,7 @@
 <project default="teensydaq_jar" name="Create TeensyDAQ JAR-file">
 
 	<!-- Configuration -->
-	<property name="version"   value="1.0"/>
+	<property name="version"   value="1.1"/>
 	<property name="built_by"  value="${user.name}"/>
 
 	<!-- run the ant timestamp task -->
