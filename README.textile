@@ -75,5 +75,7 @@ h2. Changelog
 
 <dt>Version 1.0</dt><dd>2015-07-10</dd> First release which includes basic functionality.
 
+<dt>Version 1.1</dt><dd>2016-03-22</dd> Update to support automatic naming of data files and sample rate choice.
+
 
  

@@ -42,6 +42,7 @@
 			<!-- Include external libraries -->
 			<zipfileset excludes="META-INF/*.SF" src="../lib/TarsosDSP-2.2.jar"/>
 			<zipfileset excludes="META-INF/*.SF" src="../lib/jssc.jar"/>
+			<zipfileset excludes="META-INF/*.SF" src="../lib/javaosc-core-0.3.jar"/>
 
 			<!-- include source files -->
 			<fileset dir="../src">
@@ -54,7 +55,7 @@
 
 	<!-- Build the library documentation -->
 	<target name="javadoc" description="Build the library documentation">
-		<javadoc access="public" author="true" classpath="../lib/TarsosDSP-2.2.jar:../lib/jssc.jar" 
+		<javadoc access="public" author="true" classpath="../lib/TarsosDSP-2.2.jar:../lib/jssc.jar:../lib/javaosc-core-0.3.jar" 
 			destdir="doc" 
 			doctitle="TeensyDAQ API ${version}-${DSTAMP}" 
 			nodeprecated="false" 

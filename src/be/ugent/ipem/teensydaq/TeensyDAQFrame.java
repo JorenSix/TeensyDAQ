@@ -102,7 +102,7 @@ public class TeensyDAQFrame extends JFrame implements ViewPortChangedListener, D
 		    }
 		});
 		
-		sampleRateSpinner = new JSpinner(new SpinnerNumberModel(500.0,0.0,8000,1));
+		sampleRateSpinner = new JSpinner(new SpinnerNumberModel(500.0,0.0,40000,1));
 		sampleRateSpinner.setToolTipText("The sample rate in Hz");
 		
 		recordingIDSpinner = new JSpinner(new SpinnerNumberModel(1,1,8000,1));
