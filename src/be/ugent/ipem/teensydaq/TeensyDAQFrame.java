@@ -8,7 +8,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -67,7 +66,7 @@ public class TeensyDAQFrame extends JFrame implements ViewPortChangedListener, D
 	 * 
 	 */
 	private static final long serialVersionUID = -7096578086282090881L;
-	private static final int MAX_ANALOG_INPUTS = 8;
+	private static final int MAX_ANALOG_INPUTS = 5;
 	
 	private final ConcurrentSkipListMap<Double, Double[]> data = new ConcurrentSkipListMap<Double, Double[]>();
 	private final Color[] colorMap =  Configuration.colorMap;
@@ -563,8 +562,7 @@ public class TeensyDAQFrame extends JFrame implements ViewPortChangedListener, D
 				} catch (Exception e) {
 				}
 				JFrame frame = new TeensyDAQFrame();
-				Toolkit tk = Toolkit.getDefaultToolkit();
-				frame.setSize(tk.getScreenSize());
+				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				frame.setVisible(true);
 			}
 		});
